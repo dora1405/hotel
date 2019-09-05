@@ -18,10 +18,6 @@ describe "Reservation class" do
     expect(@reservations).must_be_kind_of HotelSystem::Reservation
   end
   
-  it "access the list of all of the rooms in the hotel" do
-    expect(@reservations.display_rooms.keys).must_equal [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 ,19, 20]
-    
-  end
   
   # make a reservation of a room for a given date range
   it "make a reservation of a room for a given date range" do

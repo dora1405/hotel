@@ -15,15 +15,6 @@ module HotelSystem
       @room_num = room_num
     end
     
-    # access the list of all of the rooms in the hotel
-    def display_rooms
-      rooms_list = BookingManager.new
-      return rooms_list.all_rooms
-      
-      
-    end
-    
-    
     # make a reservation of a room for a given date range
     
     def make_reservation

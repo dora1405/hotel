@@ -17,7 +17,11 @@ module HotelSystem
     @all_rooms = all_rooms
     end
   
-  
+    def display_rooms
+      return all_rooms.keys
+      
+      
+    end
   
   
   end
