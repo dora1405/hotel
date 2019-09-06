@@ -51,17 +51,25 @@ module HotelSystem
     
     def reservation_list
       rooms_reserved = []
-      hotel_rooms = BookingManager.new
-      hotel_rooms.all_rooms.each do |room_num, array_dates|
+      hotel_rooms = make_reservation
+      print 'roomsss' 
+      puts hotel_rooms.inspect
+      hotel_rooms.each do |room_num, array_dates|
         if array_dates.any?(@check_date)
           rooms_reserved << room_num
         end
       end
       return "The following rooms are reserved on #{@check_date}: #{rooms_reserved}"
     end
-
-
-
+    
+    
+    # rooms_reserved = []
+    # all_rooms.each do |room_num, array_dates|
+    #   if array_dates.any?(check_date)
+    #     rooms_reserved << room_num
+    #   end
+    # end
+    # puts "The following rooms are reserved on #{check_date}: #{rooms_reserved}"
     
     
     # get the total cost for a given reservation
