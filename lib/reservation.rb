@@ -35,7 +35,16 @@ module HotelSystem
     
     def make_reservation
       display_rooms
-      
+      # all_rooms.each do |room_num, array_dates|
+      #   if array_dates.empty?
+      #     all_rooms[room_num] = reservation_nights
+      #   end
+      #   array_dates.each do |dates|
+      #     if dates == nil
+      #       dates = reservation_nights
+      #     end
+      #   end
+      # end
     end
     
     
