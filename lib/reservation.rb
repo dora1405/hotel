@@ -26,21 +26,23 @@ module HotelSystem
     end
     
     def total_nights
-      total_nights = num_of_nights.length
-      return to
+      nights = num_of_nights.length
+      return nights
     end
     
     
     # make a reservation of a room for a given date range
     
     def make_reservation
-      display_rooms.each do |room_num, array_dates|
+
+      @hotel_rooms = BookingManager.new
+      @hotel_rooms.all_rooms.each do |room_num, array_dates|
         if array_dates.empty?
-          display_rooms[room_num] = reservation_nights
+          @hotel_rooms.all_rooms[room_num] = reserved_nights
         end
         array_dates.each do |dates|
           if dates == nil
-            dates = reservation_nights
+            dates = reserved_nights
           end
         end
       end

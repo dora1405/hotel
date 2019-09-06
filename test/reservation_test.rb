@@ -6,7 +6,7 @@ describe "Reservation class" do
     @reservations = HotelSystem::Reservation.new(
       check_in: "2019-10-10",
       check_out: "2019-10-13",
-      total_nights: 2,
+      total_nights: 3,
       room_status: nil,
       total_cost: 600,
       name: "John Doe",
@@ -23,9 +23,9 @@ describe "Reservation class" do
   end
   
   # make a reservation of a room with a given date range
-  it "make a reservation of a room for a given date range" do
-    
-    expect(@reservations.make_reservation).must_equal all_rooms[1] = [id => ["2019-10-10", "2019-10-11", "2019-10-12", "2019-10-13"]]
+  it "make a reservation of a room with given date range" do
+    @hotel_rooms = HotelSystem::BookingManager.new
+    expect(@reservations.make_reservation).must_equal @hotel_rooms.all_rooms[1] = [Date.parse("2019-10-10"), Date.parse("2019-10-11"), Date.parse("2019-10-12")]
   end
   
   it "find total cost" do
