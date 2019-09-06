@@ -3,9 +3,9 @@ require 'date'
 
 module HotelSystem
   class Reservation
-    attr_reader :check_in, :check_out, :total_nights, :room_status, :total_cost, :name, :room_num
+    attr_reader :check_in, :check_out, :total_nights, :room_status, :total_cost, :name, :room_num, :cost
     
-    def initialize(check_in:, check_out:, total_nights:, room_status:, total_cost:, name:, room_num:)
+    def initialize(check_in:, check_out:, total_nights:, room_status:, total_cost:, name:, room_num:, cost: 200)
       @check_in = Date.parse(check_in.to_s)
       @check_out = Date.parse(check_out.to_s)
       @total_nights = total_nights
@@ -13,35 +13,48 @@ module HotelSystem
       @total_cost = total_cost
       @name = name
       @room_num = room_num
+      @cost = 200
     end
+    
+    def reserved_nights
+      reservation_nights = []
+      reservation_nights << @check_in
+      while @check_in < (@check_out - 1)
+        reservation_nights << @check_in += 1
+      end
+      return reservation_nights
+    end
+    
+    def total_nights
+      total_nights = num_of_nights.length
+      return to
+    end
+    
     
     # make a reservation of a room for a given date range
     
     def make_reservation
       display_rooms
       
-      date_range = []
-      i = 0
-      
-      while check_in < check_out
-        date_range << check_in += i
-        i += 1
-      end
-      
-      
-      date_range.each do |date|
-        if date != rooms_list.all_rooms
-          
-          
-          test = {1 => []}
-          
-          test[1] = 1
-          
-          puts test
-          
-        end
-      end
+    end
+    
+    
+    
+    
+    # access the list of reservations for a specific date, to track reservations by date
+    
+    
+    
+    # get the total cost for a given reservation
+    def total_cost
+      total_nights = reserved_nights.length
+      total_cost = total_nights * cost
+      return total_cost
       
     end
+    
+    
+    
+    
   end
 end
