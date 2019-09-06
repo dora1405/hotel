@@ -14,8 +14,6 @@ module HotelSystem
   
     def display_rooms
       return all_rooms.keys
-      
-      
     end
   
   
