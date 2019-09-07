@@ -3,7 +3,7 @@ require 'date'
 
 module HotelSystem
   class Reservation
-    attr_reader :check_in, :check_out, :total_nights, :room_status, :total_cost, :room_num, :cost, :check_date
+    attr_reader :check_in, :check_out, :total_nights, :room_status, :total_cost, :room_num, :cost, :check_date, :hotel_rooms
     
     def initialize(check_in:, check_out:, total_nights:, room_status:, total_cost:, room_num:, cost: 200, check_date:)
       @check_in = Date.parse(check_in.to_s)
@@ -14,7 +14,8 @@ module HotelSystem
       @room_num = room_num
       @cost = 200
       @check_date = Date.parse(check_date.to_s)
-
+      @hotel_rooms = BookingManager.new
+      
       
     end
     
@@ -27,6 +28,7 @@ module HotelSystem
       return reservation_nights
     end
     
+    
     def total_nights
       nights = num_of_nights.length
       return nights
@@ -36,7 +38,6 @@ module HotelSystem
     # make a reservation of a room for a given date range
     
     def make_reservation
-      hotel_rooms = BookingManager.new
       hotel_rooms.all_rooms.each do |room_num, array_dates|
         if array_dates.empty?
           hotel_rooms.all_rooms[room_num] = reserved_nights
@@ -51,8 +52,7 @@ module HotelSystem
     
     def reservation_list
       rooms_reserved = []
-      hotel_rooms = make_reservation
-      hotel_rooms.each do |room_num, array_dates|
+      hotel_rooms.all_rooms.each do |room_num, array_dates|
         if array_dates.any?(@check_date)
           rooms_reserved << room_num
         end
@@ -61,26 +61,24 @@ module HotelSystem
     end
     
     
-    # get the total cost for a given reservation
     def total_cost
       total_nights = reserved_nights.length
       total_cost = total_nights * cost
       return total_cost
     end
     
-
-
+    
     def available_rooms
       rooms_available = []
-      hotel_rooms = make_reservation
+      available_dates = []
+      hotel_rooms = make_reservation    
       hotel_rooms.each do |room_num, array_dates|
-        if array_dates.any?(@check_date)
-          rooms_reserved << room_num
+        if array_dates.none? @check_date
+          rooms_available << room_num
         end
       end
-      return "The following rooms are reserved on #{@check_date}: #{rooms_reserved}"
+      return "The following rooms are available for reservation on #{@check_date}: #{rooms_available}"
     end
-    
     
     
   end
