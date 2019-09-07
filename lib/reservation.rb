@@ -15,10 +15,9 @@ module HotelSystem
       @cost = 200
       @check_date = Date.parse(check_date.to_s)
       @hotel_rooms = BookingManager.new
-      
-      
     end
     
+
     def reserved_nights
       reservation_nights = []
       reservation_nights << @check_in
@@ -34,8 +33,13 @@ module HotelSystem
       return nights
     end
     
+
+    def total_cost
+      total_nights = reserved_nights.length
+      total_cost = total_nights * cost
+      return total_cost
+    end
     
-    # make a reservation of a room for a given date range
     
     def make_reservation
       hotel_rooms.all_rooms.each do |room_num, array_dates|
@@ -47,10 +51,8 @@ module HotelSystem
       return hotel_rooms.all_rooms
     end
     
-    
-    # access the list of reservations for a specific date, to track reservations by date
-    
-    def reservation_list
+
+    def find_reserved_rooms
       rooms_reserved = []
       hotel_rooms.all_rooms.each do |room_num, array_dates|
         if array_dates.any?(@check_date)
@@ -60,19 +62,11 @@ module HotelSystem
       return "The following rooms are reserved on #{@check_date}: #{rooms_reserved}"
     end
     
-    
-    def total_cost
-      total_nights = reserved_nights.length
-      total_cost = total_nights * cost
-      return total_cost
-    end
-    
-    
-    def available_rooms
+
+    def find_available_rooms
       rooms_available = []
-      available_dates = []
-      hotel_rooms = make_reservation    
-      hotel_rooms.each do |room_num, array_dates|
+      available_dates = [] 
+      hotel_rooms.all_rooms.each do |room_num, array_dates|
         if array_dates.none? @check_date
           rooms_available << room_num
         end

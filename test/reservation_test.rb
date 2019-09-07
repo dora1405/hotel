@@ -29,9 +29,8 @@ describe "Reservation class" do
   end
   
   it "find list of reservations(rooms) for a specified date" do
-    @hotel_rooms = HotelSystem::BookingManager.new
     @reservations.make_reservation
-    expect(@reservations.reservation_list).must_equal "The following rooms are reserved on 2019-10-11: [1]"
+    expect(@reservations.find_reserved_rooms).must_equal "The following rooms are reserved on 2019-10-11: [1]"
   end
   
   it "find total cost" do
@@ -39,9 +38,8 @@ describe "Reservation class" do
   end
   
   it "find list of available rooms given a date" do
-    @hotel_rooms = HotelSystem::BookingManager.new
     @reservations.make_reservation
-    expect(@reservations.available_rooms).must_equal "The following rooms are available for reservation on 2019-10-11: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]"
+    expect(@reservations.find_available_rooms).must_equal "The following rooms are available for reservation on 2019-10-11: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]"
     
   end
 end
