@@ -17,7 +17,7 @@ module HotelSystem
       @hotel_rooms = BookingManager.new
     end
     
-
+    
     def reserved_nights
       reservation_nights = []
       reservation_nights << @check_in
@@ -33,7 +33,7 @@ module HotelSystem
       return nights
     end
     
-
+    
     def total_cost
       total_nights = reserved_nights.length
       total_cost = total_nights * cost
@@ -51,7 +51,7 @@ module HotelSystem
       return hotel_rooms.all_rooms
     end
     
-
+    
     def find_reserved_rooms
       rooms_reserved = []
       hotel_rooms.all_rooms.each do |room_num, array_dates|
@@ -62,7 +62,7 @@ module HotelSystem
       return "The following rooms are reserved on #{@check_date}: #{rooms_reserved}"
     end
     
-
+    
     def find_available_rooms
       rooms_available = []
       available_dates = [] 
@@ -74,6 +74,19 @@ module HotelSystem
       return "The following rooms are available for reservation on #{@check_date}: #{rooms_available}"
     end
     
-    
+    def find_first_available_room
+      last_night = @check_out - 1
+      hotel_rooms.all_rooms.each do |room, dates|
+        if dates == []
+          return room
+          break
+        end
+        if @check_in.between?(dates[0], dates[-1]) || last_night.between?(dates[0], dates[-1])
+        else
+          return room
+          break
+        end
+      end
+    end
   end
 end
