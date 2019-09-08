@@ -40,17 +40,23 @@ module HotelSystem
       return total_cost
     end
     
-    
+
     def make_reservation
-      hotel_rooms.all_rooms.each do |room_num, array_dates|
-        if array_dates.empty?
+      last_night = @check_out - 1
+      hotel_rooms.all_rooms.each do |room, dates|
+        if dates.empty?
+          hotel_rooms.all_rooms[room_num] = reserved_nights
+          break
+        end
+        if @check_in.between?(dates[0], dates[-1]) || last_night.between?(dates[0], dates[-1])
+        else
           hotel_rooms.all_rooms[room_num] = reserved_nights
           break
         end
       end
       return hotel_rooms.all_rooms
     end
-    
+
     
     def find_reserved_rooms
       rooms_reserved = []
@@ -72,21 +78,6 @@ module HotelSystem
         end
       end
       return "The following rooms are available for reservation on #{@check_date}: #{rooms_available}"
-    end
-    
-    def find_first_available_room
-      last_night = @check_out - 1
-      hotel_rooms.all_rooms.each do |room, dates|
-        if dates == []
-          return room
-          break
-        end
-        if @check_in.between?(dates[0], dates[-1]) || last_night.between?(dates[0], dates[-1])
-        else
-          return room
-          break
-        end
-      end
     end
   end
 end
