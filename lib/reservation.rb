@@ -40,9 +40,10 @@ module HotelSystem
       return total_cost
     end
     
-
+    
     def make_reservation
       last_night = @check_out - 1
+      rooms_checked = 0
       hotel_rooms.all_rooms.each do |room, dates|
         if dates.empty?
           hotel_rooms.all_rooms[room_num] = reserved_nights
@@ -53,10 +54,14 @@ module HotelSystem
           hotel_rooms.all_rooms[room_num] = reserved_nights
           break
         end
+        rooms_checked += 1
+        if rooms_checked = 20
+          raise ArgumentError, "No rooms available for these dates."
+        end
       end
-      return hotel_rooms.all_rooms
+      return hotel_rooms.all_rooms      
     end
-
+    
     
     def find_reserved_rooms
       rooms_reserved = []
