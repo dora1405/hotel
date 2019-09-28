@@ -1,33 +1,42 @@
 module HotelSystem
   class Reservation
-    attr_reader :check_in, :check_out # :total_nights, :room_status, :total_cost, :room_num, :hotel_rooms
+    #attr_reader :check_in, :check_out, :total_nights, :room_status, :total_cost, :room_num, :hotel_rooms
     
-    COST = 200
-    def initialize(check_in:, check_out:)
-      @check_in = Date.parse(check_in.to_s)
-      @check_out = Date.parse(check_out.to_s)
+    # COST = 200
+    def initialize
+    #   @check_in = Date.parse(check_in.to_s)
+    #   @check_out = Date.parse(check_out.to_s)
       # @total_nights = total_nights
       # @room_status = room_status
       # @total_cost = total_cost
       # @room_num = room_num
       # @check_date = Date.parse(check_date.to_s)
-      # @hotel_rooms = BookingManager.new
+      @hotel_rooms = BookingManager.new
     end
     
-    def make_reservation
-      if @check_out < @check_in
+    def make_reservation(check_in, check_out)
+      check_in = Date.parse(check_in.to_s)
+      check_out = Date.parse(check_out.to_s)
+
+      if check_out < check_in
         raise ArgumentError, "Invalid check-out date"
       end
-      last_night = @check_out - 1
+      
+      reservation_nights = []
+      reservation_nights << check_in
+      while check_in < (check_out - 1)
+        reservation_nights << check_in += 1
+      end
+      last_night = check_out - 1
       rooms_checked = 0
-      hotel_rooms.all_rooms.each do |room, dates|
+      @hotel_rooms.all_rooms.each do |room, dates|
         if dates.empty?
-          hotel_rooms.all_rooms[room_num] = reserved_nights
+          @hotel_rooms.all_rooms[room] = reservation_nights
           break
         end
-        if @check_in.between?(dates[0], dates[-1]) || last_night.between?(dates[0], dates[-1])
+        if check_in.between?(dates[0], dates[-1]) || last_night.between?(dates[0], dates[-1])
         else
-          hotel_rooms.all_rooms[room_num] = reserved_nights
+          @hotel_rooms.all_rooms[room_num] = reservation_nights
           break
         end
         rooms_checked += 1
@@ -35,17 +44,10 @@ module HotelSystem
           raise ArgumentError, "No rooms available for these dates."
         end
       end
-      return hotel_rooms.all_rooms      
+      return @hotel_rooms.all_rooms      
     end
     
-    # def reserved_nights
-    #   reservation_nights = []
-    #   reservation_nights << @check_in
-    #   while @check_in < (@check_out - 1)
-    #     reservation_nights << @check_in += 1
-    #   end
-    #   return reservation_nights
-    # end
+
     
     
     # def total_nights
