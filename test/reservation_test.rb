@@ -5,17 +5,21 @@ describe "Reservation class" do
   before do
     @reservations = HotelSystem::Reservation.new(
       check_in: "2019-10-10",
-      check_out: "2019-10-13",
-      total_nights: 3,
-      room_status: nil,
-      total_cost: 600,
-      room_num: 1,
-      check_date: "2019-10-11"
+      check_out: "2019-10-13"
     )
   end
   
   it "is an instance of Reservation" do
     expect(@reservations).must_be_kind_of HotelSystem::Reservation
+  end
+
+  it "checks for invalid date range" do
+    @reservations = HotelSystem::Reservation.new(
+      check_in: "2019-10-13",
+      check_out: "2019-10-10"
+    )
+    expect{@reservations.make_reservation}.must_raise ArgumentError
+    
   end
   
   it "find reserved_nights" do
