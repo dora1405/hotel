@@ -37,3 +37,20 @@ Implementation B because each class doesn't know too much about the other classe
 
 Bonus question once you've read Metz ch. 3: Which implementation is more loosely coupled?
 Implementation B because Order#total_price doesn't have to know the unit price and quantity of each item from CartEntry like in implementation A.
+
+
+Hotel Redesign Activity
+My Reservation class took on too make roles that belonged in BookingManager.
+The following changes to make:
+
+Wave 1
+Access the list of all of the rooms in the hotel - Stays in BookingManager
+
+Make a reservation of a room for a given date range - Stays in Reservation
+
+Access the list of reservations for a specific date(track reservations by date) - Move from Reservation to BookingManager. Would be an improvement because it makes more sense to have this function in  
+BookingManager because it holds all the booked reservations for the hotel.
+
+Get the total cost for a given reservation - Move from Reservation to BookingManager. 
+
+Raise exception when an invalid date range is provided - Move from DateRange to Reservation because reservation can't be make if date range given is invalid.
