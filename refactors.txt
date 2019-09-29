@@ -1,7 +1,0 @@
-class Reservation
--Need to look at the methods. Some most likely do not belong in there and belong in BookingManager instead
--Take a look at all the instance variables. There's an excess that are not necessary.
-
-class DateRange
--can refactor by putting the ArgumentError into the make_reservation methods
--this class doesn't seem necessary.
