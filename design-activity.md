@@ -1,4 +1,4 @@
-Activity: Evaluating Responsibility
+-----Activity: Evaluating Responsibility-----
 Prompts:
 What classes does each implementation include? Are the lists the same?
 Both implementations contain the same classes: CartEntry, ShoppingCart and Order.
@@ -39,7 +39,7 @@ Bonus question once you've read Metz ch. 3: Which implementation is m
 Implementation B because Order#total_price doesn't have to know the unit price and quantity of each item from CartEntry like in implementation A.
 
 
-Hotel Redesign Activity
+-----Hotel Redesign Activity-----
 My original thought was needing to move some methods from Reservation to BookingManager, such as:
 -----------
 Wave 1
@@ -55,4 +55,4 @@ Get the total cost for a given reservation - Move from Reservation t
 Raise exception when an invalid date range is provided - Move from DateRange to Reservation because reservation can't be make if date range given is invalid.
 -----------
 
-and also take out the DateRange and move the ArgumentError there to Reservation#make_reservation; however,after working on the first part for half a day while trying to recycle my codes,it's a No-Go in my books. My hotel design is something I'll have to raze to the ground and start anew.The only thing I was able to accomplish was taking out DateRange.
+and also take out the DateRange and move the ArgumentError there to Reservation#make_reservation; however, after working on the first part while trying to recycle my codes, the whole design is something I'll have to raze to the ground and start anew. This is something I'll have to work with my tutor on revisiting and getting a better grasp of where my logic went off the rails and how to correct it going forward. The only thing I was able to accomplish was taking out DateRange.
