@@ -22,6 +22,19 @@ describe "Reservation class" do
     expect(@reservations.reserved_nights).must_equal [Date.parse("2019-10-10"), Date.parse("2019-10-11"), Date.parse("2019-10-12")]
   end
   
+  it "checks for invalid date range" do
+    @reservations = HotelSystem::Reservation.new(
+      check_in: "2019-10-13",
+      check_out: "2019-10-10",
+      total_nights: 3,
+      room_status: nil,
+      total_cost: 600,
+      room_num: 1,
+      check_date: "2019-10-11"
+    )
+    expect{@reservations.make_reservation}.must_raise ArgumentError
+    
+  end
   
   it "make a reservation of a room with given date range" do
     expect(@reservations.make_reservation).must_equal 1 => [Date.parse("2019-10-10"), Date.parse("2019-10-11"), Date.parse("2019-10-12")], 2 => [], 3=>[], 4=>[], 5=>[], 6=>[], 7=>[], 8=>[], 9=>[], 10=>[], 11=>[], 12=>[], 13=>[], 14=>[], 15=>[], 16=>[], 17=>[], 18=>[], 19=>[], 20=>[]
