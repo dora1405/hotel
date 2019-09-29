@@ -41,3 +41,35 @@ Implementation B because in implementation A, Order#total_price knows ShoppingCa
 
 
 -----Hotel Redesign Activity-----
+My original plan for the redesign is to move some functions from Wave 1 that were made in Reservation to BookingManager: 
+
+Access the list of all the rooms in the hotel - Stays in BookingManager
+Make a reservation of a room for a given date range - Stays in Reservation
+Access the list of reservatinos for a specific date - Move from Reservation to BookingManager
+Get total cost for a given reservation - Move from Reservation to BookingManager
+Raise exception when an invalid date range is provided - Move from DateRange to Reservation and delete DateRange
+
+
+However, upon trying to rework the Reservation class it became clear it would require starting from scratch and a complete rebuild of the entire project. So, the refactoring I can execute with the code I do have, is take out DateRange and move the invalid date range ArgumentError into Reservation#make_reservation. From the requirments in Wave 1 and 2, having a DateRange class isn't necessary since it makes since to raise the ArgumentError in the make_reservation method. Having DateRange is more anticipatory of need that hasn't come presented itself.
+
+Regarding the reconstruction of my Hotel project, the following is what I have in mind:
+class Reservation
+  def initialize: @reservation #Hash with room numbers as key and value as array
+  display_room method #shows all rooms available in hotel
+  make_reservation method 
+    #raise ArgumentErrors for invalid date range
+    #make instance of Booker which contains guest's phone number (use as reservation id), check in date and check out date
+    #calls on available_rooms method to check new reservation's date range is available
+    #if available: make reservation and shovel/push it into @reservation
+    #if not available: raise ArgumentError that no room is available for given date range
+  list_reservation method #list all reservations for a given date range
+  available_rooms method #list all available rooms for a given date range
+  find_reservation method #find a given reservation. Will find by id# which is the phone number of the guest
+  total_cost method #calculates total cost of a reservation
+
+class Booker
+  def initialize(phone_num, check_in, check_out)
+    #phone_num is guest's phone number that will act as the reservation's id number
+    #check in and check out date of the reservation
+  total_cost method #calculates total cost of a reservation before booking
+    #may seem redundant to have this method in two classes but I think it's still acceptable under SRP

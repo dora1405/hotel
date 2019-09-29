@@ -43,9 +43,7 @@ module HotelSystem
     
     def make_reservation
 
-      if @check_out < @check_in
-        raise ArgumentError, "Invalid check-out date"
-      end
+      raise ArgumentError, "Invalid check-out date" if @check_out < @check_in
       
       last_night = @check_out - 1
       rooms_checked = 0
